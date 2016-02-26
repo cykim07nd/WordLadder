@@ -7,7 +7,8 @@ public class Assign4Driver
     public static void main(String[] args)
     {
         // Create a word ladder solver object
-        Assignment4Interface wordLadderSolver = new WordLadderSolver();
+    	String file = "A4words.dat";
+        Assignment4Interface wordLadderSolver = new WordLadderSolver(file);
 
         try 
         {
