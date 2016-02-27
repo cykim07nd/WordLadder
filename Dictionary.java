@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Dictionary
 {
 	private ArrayList<String> words;
+	
 	public Dictionary(String file) {
 		super();
 		ArrayList<String> words = new ArrayList<String>();
@@ -21,7 +22,7 @@ public class Dictionary
 			{
 				if(s.charAt(0)!='*')
 				{	
-					s = s.substring(0, 5);		
+					s = s.substring(0,5);		
 					words.add(s);
 					
 				}
@@ -50,7 +51,7 @@ public class Dictionary
 	}
 	
 	
-	public boolean find(String word)
+	public boolean isWord(String word)
 	{
 		int i = this.words.indexOf(word);
 		if(i == -1)
