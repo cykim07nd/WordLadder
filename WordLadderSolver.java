@@ -59,8 +59,7 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	if(differences == 0)
     	{
-    		SolutionList.add(startWord);
-    		printSolution(SolutionList,startWord,endWord);
+    		System.out.printf("%s %s",startWord,endWord);
     		return SolutionList;
     	}
     	if(differences == 1)
@@ -163,7 +162,7 @@ public class WordLadderSolver implements Assignment4Interface
     		String sub1 = fromWord.substring(1);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(letter+sub1,toWord,0,Candidates)){
+    			if(Check(letter+sub1,toWord,1,Candidates)){
     				return true;
     			}
     		}
@@ -173,7 +172,7 @@ public class WordLadderSolver implements Assignment4Interface
     		String sub2of2 = fromWord.substring(2);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(sub1of2+letter+sub2of2,toWord,0,Candidates)){
+    			if(Check(sub1of2+letter+sub2of2,toWord,2,Candidates)){
     				return true;
     			}
     		}
@@ -183,7 +182,7 @@ public class WordLadderSolver implements Assignment4Interface
     		String sub2of2 = fromWord.substring(3);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(sub1of2+letter+sub2of2,toWord,0,Candidates)){
+    			if(Check(sub1of2+letter+sub2of2,toWord,3,Candidates)){
     				return true;
     			}
     		}
@@ -193,7 +192,7 @@ public class WordLadderSolver implements Assignment4Interface
     		String sub2of2 = fromWord.substring(4);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(sub1of2+letter+sub2of2,toWord,0,Candidates)){
+    			if(Check(sub1of2+letter+sub2of2,toWord,4,Candidates)){
     				return true;
     			}
     		}
@@ -202,7 +201,7 @@ public class WordLadderSolver implements Assignment4Interface
     		String sub1 = fromWord.substring(0,4);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(sub1 + letter,toWord,0,Candidates)){
+    			if(Check(sub1 + letter,toWord,5,Candidates)){
     				return true;
     			}
     		}
