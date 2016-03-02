@@ -27,29 +27,26 @@ public class WordLadderSolver implements Assignment4Interface
 	}
     
 
-	// delcare class members here.
 	Dictionary dictionary= new Dictionary("A4words.dat");
-    // add a constructor for this object. HINT: it would be a good idea to set up the dictionary there
-
 	
     public WordLadderSolver(String file) 
     {
     	this.dictionary = new Dictionary(file);
 	}
-	// do not change signature of the method implemented from the interface
+    
     @Override
     public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
     {
     	int i =0;
     	int differences = 0;
     	SolutionList = new ArrayList<String>();
-    	if((!dictionary.isWord(startWord))|(!dictionary.isWord(endWord)))
+    	if((!dictionary.isWord(startWord))|(!dictionary.isWord(endWord)))						//check if 5-letter word
     	{
     		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);
     		System.out.printf("At least one of the words %s and %s are not legitimate 5-letter words from the dictionary\n**********\n", startWord, endWord);
     		return null;
     	}
-    	for(char ch:startWord.toCharArray())
+    	for(char ch:startWord.toCharArray())													//count the number of differences between startword and endword
     	{
     		if(ch != endWord.charAt(i))
     		{
@@ -58,24 +55,28 @@ public class WordLadderSolver implements Assignment4Interface
     		i++;
     	}
     	if(differences == 0)
-    	{
-    		System.out.printf("For the input words \"%s\" and \"%s\"\n%s %s\n**********\n",startWord,endWord,startWord,endWord);
+    	{																						//if the startword and endword is equal, print out both words, and return an empty list
+    		System.out.printf("For the input words \"%s\" and \"%s\"\n%s %s\n**********\n",startWord,endWord,startWord,endWord); 
     		return SolutionList;
     	}
-    	if(differences == 1)
-    	{
-    		SolutionList.add(startWord);
+    	if(differences == 1)																	//if the words are already a word ladder, add two words to our solution and print
+    	{	
+    		SolutionList.add(startWord);														
     		SolutionList.add(endWord);
     		printSolution(SolutionList,startWord,endWord);
     		return SolutionList;
     	}
-    	if(MakeLadder(startWord,endWord, 0))
+    	if(MakeLadder(startWord,endWord, 0))													//use MakeLadder to generate a solution. It returns true if there is a word ladder, false if not
     	{
-    		printSolution(SolutionList,startWord,endWord);
-    		return SolutionList;
+    		if(validateResult(startWord,endWord,SolutionList))
+    		{
+    			printSolution(SolutionList,startWord,endWord);									//print solution and return solution
+        		return SolutionList;
+    		}
+    		System.out.println("Error in ladder generation");
     	}
     	else{
-    		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);
+    		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);	//print the lack of solution and return null
     		System.out.printf("There is no word ladder between %s and %s!\n********** \n", startWord, endWord);
     	}
     	return null;
@@ -157,20 +158,20 @@ public class WordLadderSolver implements Assignment4Interface
     	return count;
     }
     
-    public boolean MakeLadder(String fromWord,String toWord, int place)
+    public boolean MakeLadder(String fromWord,String toWord, int place)						//uses recursion and finds a word ladder
     {
-    	SolutionList.add(fromWord);
-    	SortedSet<String> Candidates = new TreeSet<String>();
-    	if(place != 1){
+    	SolutionList.add(fromWord);															//add fromword to solution
+    	SortedSet<String> Candidates = new TreeSet<String>();								//make a new list of candidates
+    	if(place != 1){																		//if the place is not 1, replace letter 1 with all possible letters of the alphabet
     		String sub1 = fromWord.substring(1);
     		for(String letter: alphabet)
     		{	 
-    			if(Check(letter+sub1,toWord,1,Candidates)){
+    			if(Check(letter+sub1,toWord,1,Candidates)){									//use check function to see if its a word, if its a match, and if it is already in a solution
     				return true;
     			}
     		}
     	}
-    	if(place != 2){
+    	if(place != 2){																		//repeat the above steps with letter 2
     		String sub1of2 = fromWord.substring(0,1);
     		String sub2of2 = fromWord.substring(2);
     		for(String letter: alphabet)
@@ -181,7 +182,7 @@ public class WordLadderSolver implements Assignment4Interface
     		}
     	}
     	if(place != 3){
-    		String sub1of2 = fromWord.substring(0,2);
+    		String sub1of2 = fromWord.substring(0,2);										//repeat the above steps with letter 3
     		String sub2of2 = fromWord.substring(3);
     		for(String letter: alphabet)
     		{	 
@@ -191,7 +192,7 @@ public class WordLadderSolver implements Assignment4Interface
     		}
     	}
     	if(place != 4){
-    		String sub1of2 = fromWord.substring(0,3);
+    		String sub1of2 = fromWord.substring(0,3);										//repeat the above steps with letter 4
     		String sub2of2 = fromWord.substring(4);
     		for(String letter: alphabet)
     		{	 
@@ -200,7 +201,7 @@ public class WordLadderSolver implements Assignment4Interface
     			}
     		}
     	}
-    	if(place != 5){
+    	if(place != 5){																		//repeat the above steps with letter 5
     		String sub1 = fromWord.substring(0,4);
     		for(String letter: alphabet)
     		{	 
@@ -213,22 +214,22 @@ public class WordLadderSolver implements Assignment4Interface
     	{
     		if(MakeLadder(word.substring(1,6),toWord,Integer.parseInt(word.substring(6))))
     		{
-    			return true;
+    			return true;																//go through every word in the candidate list and call this same function unless we find a solution
     		}
     	}
-    	SolutionList.remove(fromWord);
+    	SolutionList.remove(fromWord);														//solution with this word do not exist, remove word from solution and return false
     	return false;
     }
      private boolean Check(String word, String toWord, int place, SortedSet<String> Candidates)
      {
-    	 if(dictionary.isWord(word))
+    	 if(dictionary.isWord(word))														//check if the given word is in the dictionary
     	 {
-			int index=SolutionList.indexOf(word);
+			int index=SolutionList.indexOf(word);											//check if the given word is already in the solution
 			if(index == -1)
 			{
 				int i = 0;
 				int difference = 0;
-				for(char ch: word.toCharArray())
+				for(char ch: word.toCharArray())											//count the difference between fromword and endword
 				{
 					if(ch!=toWord.charAt(i))
 					{
@@ -237,13 +238,13 @@ public class WordLadderSolver implements Assignment4Interface
 					i++;
 				}
 				if(difference==1){
-					SolutionList.add(word);
+					SolutionList.add(word);													//if the difference is 1, we found a word ladder, add to solution and return
 					SolutionList.add(toWord);
 					return true;
 				}
 				else
 				{
-					Candidates.add(Integer.toString(difference)+word+Integer.toString(place));
+					Candidates.add(Integer.toString(difference)+word+Integer.toString(place));	//if its not a solution it could still lead to a solution so add to the candidates
 					return false;
 				}
 			}
