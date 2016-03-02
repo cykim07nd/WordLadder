@@ -35,10 +35,17 @@ public class A4Driver
 					try 
 			        {
 						String words[] = s.toLowerCase().split(" +");
-						String first = words[0].toLowerCase();
-						String last = words[1].toLowerCase();
-			            List<String> result = wordLadderSolver.computeLadder(first, last);
-			            boolean correct = wordLadderSolver.validateResult(first, last, result);
+						if(words.length == 2)
+						{
+							String first = words[0].toLowerCase();
+							String last = words[1].toLowerCase();
+				            List<String> result = wordLadderSolver.computeLadder(first, last);
+				            boolean correct = wordLadderSolver.validateResult(first, last, result);
+						}
+						else
+						{
+							System.out.println("Invalid number of inputs");
+						}
 			        } 
 			        catch (NoSuchLadderException e) 
 			        {

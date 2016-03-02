@@ -76,10 +76,9 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	else{
     		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);
-    		System.out.printf("There is no word ladder between %s and %s!\n**********\n", startWord, endWord);
+    		System.out.printf("There is no word ladder between %s and %s!\n********** \n", startWord, endWord);
     	}
-    	//throw new UnsupportedOperationException("Not implemented yet!");
-		return null;
+    	return null;
     }
 
     @Override
@@ -259,7 +258,7 @@ public class WordLadderSolver implements Assignment4Interface
     	 {
     		 System.out.printf("%s ", word);
     	 }
-    	 System.out.println("\n**********\n");
+    	 System.out.println("\n**********");
      }
 
 }
