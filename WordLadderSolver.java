@@ -46,7 +46,7 @@ public class WordLadderSolver implements Assignment4Interface
     	if((!dictionary.isWord(startWord))|(!dictionary.isWord(endWord)))
     	{
     		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);
-    		System.out.printf("At least one of the words %s and %s are not legitimate 5-letter words from the dictionary", startWord, endWord);
+    		System.out.printf("At least one of the words %s and %s are not legitimate 5-letter words from the dictionary\n**********\n", startWord, endWord);
     		return null;
     	}
     	for(char ch:startWord.toCharArray())
@@ -59,7 +59,7 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	if(differences == 0)
     	{
-    		System.out.printf("%s %s",startWord,endWord);
+    		System.out.printf("For the input words \"%s\" and \"%s\"\n%s %s\n**********\n",startWord,endWord,startWord,endWord);
     		return SolutionList;
     	}
     	if(differences == 1)
@@ -76,7 +76,7 @@ public class WordLadderSolver implements Assignment4Interface
     	}
     	else{
     		System.out.printf("For the input words \"%s\" and \"%s\"\n", startWord, endWord);
-    		System.out.printf("There is no word ladder between %s and %s!\n", startWord, endWord);
+    		System.out.printf("There is no word ladder between %s and %s!\n**********\n", startWord, endWord);
     	}
     	//throw new UnsupportedOperationException("Not implemented yet!");
 		return null;
@@ -85,13 +85,17 @@ public class WordLadderSolver implements Assignment4Interface
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
-    	if((startWord == endWord)&&wordLadder.isEmpty())
+    	if((startWord.equals(endWord))&&(wordLadder.size()==0))
     	{
     		return true;
     	}
     	if(startWord.length()!= 5 || endWord.length() != 5)
     	{
     		return false;
+    	}
+    	if(wordLadder == null)
+    	{
+    		return true;
     	}
     	if(!wordLadder.get(0).equals(startWord) || !wordLadder.get(wordLadder.size()-1).equals(endWord))
     	{
@@ -255,7 +259,7 @@ public class WordLadderSolver implements Assignment4Interface
     	 {
     		 System.out.printf("%s ", word);
     	 }
-    	 System.out.println("\n**********");
+    	 System.out.println("\n**********\n");
      }
 
 }
