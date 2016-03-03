@@ -1,19 +1,28 @@
-/*
-    Chan-Young Kim
+/* Chan-Young Kim
+ * EID: ck23586 
+ * 
+ * Kassandra Perez
+ * EID: kap2589
+ *
+ * EE422C-Assignment 4
  */
 
 package assignment4;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 // do not change class name or interface it implements
 public class WordLadderSolver implements Assignment4Interface
-{	String[] alphabet={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+{	
+	String[] alphabet={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 	ArrayList<String> SolutionList;
-	public WordLadderSolver() {
+	
+	public WordLadderSolver() 
+	{
 		super();
 	}
     
@@ -23,7 +32,8 @@ public class WordLadderSolver implements Assignment4Interface
     // add a constructor for this object. HINT: it would be a good idea to set up the dictionary there
 
 	
-    public WordLadderSolver(String file) {
+    public WordLadderSolver(String file) 
+    {
     	this.dictionary = new Dictionary(file);
 	}
 	// do not change signature of the method implemented from the interface
@@ -76,7 +86,73 @@ public class WordLadderSolver implements Assignment4Interface
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
-        throw new UnsupportedOperationException("Not implemented yet!");
+    	if((startWord == endWord)&&wordLadder.isEmpty())
+    	{
+    		return true;
+    	}
+    	if(startWord.length()!= 5 || endWord.length() != 5)
+    	{
+    		return false;
+    	}
+    	if(!wordLadder.get(0).equals(startWord) || !wordLadder.get(wordLadder.size()-1).equals(endWord))
+    	{
+    		return false;
+    	}
+    	
+    	Iterator<String> i = wordLadder.iterator();
+        int placement = -1;
+        String prevString = startWord;
+        String newString = i.next();
+    	while(i.hasNext())
+        {
+        	newString = i.next();
+        	if(countLetterDifferent(prevString,newString) != 1)
+        	{
+        		return false;
+        	}
+        	else
+        	{
+        		if(placement == -1)
+            	{
+            		placement = placement(prevString,newString);
+            	}
+        		else 
+        		{
+        			int newPlacement = placement(prevString,newString);
+        			if(placement == newPlacement)
+        			{
+        				return false;
+        			}
+        			placement = newPlacement;
+        		}
+        	}
+        	prevString = newString; 
+        }
+    	return true;
+    }
+    private int placement(String fromWord, String toWord)
+    {
+    	for(int i = 0; i < fromWord.length() ;i++)
+    	{
+    		if(fromWord.charAt(i) != toWord.charAt(i))
+    		{
+    			return i;
+    		}
+    	}
+		return 0;
+    }
+    
+    private int countLetterDifferent(String fromWord, String toWord)
+    {
+    	int count = 0;
+    	for(int i = 0; i < fromWord.length() ;i++)
+    	{
+    		if(fromWord.charAt(i) != toWord.charAt(i))
+    		{
+    			count++;
+    		}
+    	}
+    	return count;
     }
     
     public boolean MakeLadder(String fromWord,String toWord, int place)
@@ -183,5 +259,4 @@ public class WordLadderSolver implements Assignment4Interface
     	 System.out.println("\n**********");
      }
 
-    // add additional methods here
 }

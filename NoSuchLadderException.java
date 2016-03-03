@@ -1,3 +1,11 @@
+/* Chan-Young Kim
+ * EID: ck23586 
+ * 
+ * Kassandra Perez
+ * EID: kap2589
+ *
+ * EE422C-Assignment 4
+ */
 package assignment4;
 
 public class NoSuchLadderException extends Exception

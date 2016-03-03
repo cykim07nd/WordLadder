@@ -1,3 +1,11 @@
+/* Chan-Young Kim
+ * EID: ck23586 
+ * 
+ * Kassandra Perez
+ * EID: kap2589
+ *
+ * EE422C-Assignment 4
+ */
 package assignment4;
 
 import java.util.List;
@@ -12,7 +20,7 @@ public class Assign4Driver
         try 
         {
             List<String> result = wordLadderSolver.computeLadder("heads", "tails");
-            boolean correct = wordLadderSolver.validateResult("money", "honey", result);
+            boolean correct = wordLadderSolver.validateResult("heads", "tails", result);
         } 
         catch (NoSuchLadderException e) 
         {
