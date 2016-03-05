@@ -16,9 +16,12 @@ import java.util.ArrayList;
 
 public class Dictionary
 {
+	// Attribute
 	private ArrayList<String> words;
-	
-	public Dictionary(String file) {
+
+	// Constructor
+	public Dictionary(String file) 
+	{
 		super();
 		ArrayList<String> words = new ArrayList<String>();
 		try 
@@ -52,13 +55,23 @@ public class Dictionary
 		this.words = words;
 	}
 	
-	
+	/**
+	 *	Gets the attribute Words
+	 * 
+	 *	@return A list of strings represents the dictionary 
+	 */
 	public ArrayList<String> getWords()
 	{
 		return words;
 	}
 	
-	
+	/**
+	 *	Checks if a word is in the dictionary
+	 * 
+	 *	@param word The word to check if its in the dictionary  
+	 * 	@return true if the word is in the dictionary 
+	 * 		    false if the word is not in the dictionary
+	 */
 	public boolean isWord(String word)
 	{
 		int i = this.words.indexOf(word);

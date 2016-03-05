@@ -82,26 +82,40 @@ public class WordLadderSolver implements Assignment4Interface
     	return null;
     }
 
+    /**
+     *	Check if the given wordLadder is a wordLadder
+     *
+     *	@param startWord The starting word in the word ladder.
+     *	@param endWord The ending word in the word ladder.
+     *	@param wordLadder The wordLadder to check if the solution is valid
+     *	@return	true if the wordLadder is validate
+     *			false if the wordLadder is not validate 
+     */
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
     {
+    	// Checks if startWord and endWord are the same
     	if((startWord.equals(endWord))&&(wordLadder.size()==0))
     	{
     		return true;
     	}
+    	// Checks that the words are length 5
     	if(startWord.length()!= 5 || endWord.length() != 5)
     	{
     		return false;
     	}
+    	// Checks if there is no wordLadder 
     	if(wordLadder == null)
     	{
     		return true;
     	}
+    	// Checks that the beginning and end of the wordLadder are startWord and endWord
     	if(!wordLadder.get(0).equals(startWord) || !wordLadder.get(wordLadder.size()-1).equals(endWord))
     	{
     		return false;
     	}
     	
+    	// Goes through the wordLadder and checks that the each word has a different position changed
     	Iterator<String> i = wordLadder.iterator();
         int placement = -1;
         String prevString = startWord;
@@ -109,6 +123,7 @@ public class WordLadderSolver implements Assignment4Interface
     	while(i.hasNext())
         {
         	newString = i.next();
+        	// if more than one letter is changed between a step in the wordLadder
         	if(countLetterDifferent(prevString,newString) != 1)
         	{
         		return false;
@@ -133,6 +148,14 @@ public class WordLadderSolver implements Assignment4Interface
         }
     	return true;
     }
+    
+    /**
+     *	Finds which letter was changed between a step on the wordLadder
+     *
+     *	@param fromWord The word before the wordLadder step 
+     *	@param toWord The word after the wordLadder step
+     *	@return	the index of the letter was changed between fromWord and toWord
+     */
     private int placement(String fromWord, String toWord)
     {
     	for(int i = 0; i < fromWord.length() ;i++)
@@ -145,6 +168,13 @@ public class WordLadderSolver implements Assignment4Interface
 		return 0;
     }
     
+    /**
+     *	Finds how many letters were changed between a step in the wordLadder
+     *
+     *	@param fromWord The word before the wordLadder step 
+     *	@param toWord The word after the wordLadder step
+     *	@return the number of letters that were changed between steps on the wordLadder
+     */
     private int countLetterDifferent(String fromWord, String toWord)
     {
     	int count = 0;
