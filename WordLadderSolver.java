@@ -18,9 +18,11 @@ import java.util.TreeSet;
 // do not change class name or interface it implements
 public class WordLadderSolver implements Assignment4Interface
 {	
+	// Attributes 
 	String[] alphabet={"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
 	ArrayList<String> SolutionList;
 	
+	// Constructor 
 	public WordLadderSolver() 
 	{
 		super();
@@ -29,11 +31,20 @@ public class WordLadderSolver implements Assignment4Interface
 
 	Dictionary dictionary= new Dictionary("A4words.dat");
 	
+	// Constructor
     public WordLadderSolver(String file) 
     {
     	this.dictionary = new Dictionary(file);
 	}
     
+    
+    /**
+     *	Creates the word ladder
+     *
+     *	@param startWord The starting word in the word ladder.
+     *	@param endWord The ending word in the word ladder.
+     *	@return the WordLadder for two words
+     */
     @Override
     public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException 
     {
@@ -82,14 +93,15 @@ public class WordLadderSolver implements Assignment4Interface
     	return null;
     }
 
+    
     /**
      *	Check if the given wordLadder is a wordLadder
      *
      *	@param startWord The starting word in the word ladder.
      *	@param endWord The ending word in the word ladder.
      *	@param wordLadder The wordLadder to check if the solution is valid
-     *	@return	true if the wordLadder is validate
-     *			false if the wordLadder is not validate 
+     *	@return	true if the wordLadder is valid
+     *			false if the wordLadder is not valid
      */
     @Override
     public boolean validateResult(String startWord, String endWord, List<String> wordLadder) 
@@ -99,13 +111,8 @@ public class WordLadderSolver implements Assignment4Interface
     	{
     		return true;
     	}
-    	// Checks that the words are length 5
-    	if(startWord.length()!= 5 || endWord.length() != 5)
-    	{
-    		return false;
-    	}
     	// Checks if there is no wordLadder 
-    	if(wordLadder == null)
+    	if(wordLadder == null|| ((startWord.length() != 5 || endWord.length() != 5) && wordLadder == null ))
     	{
     		return true;
     	}
@@ -123,6 +130,13 @@ public class WordLadderSolver implements Assignment4Interface
     	while(i.hasNext())
         {
         	newString = i.next();
+        	
+        	// check if the new word has 5 letters in it
+        	if(newString.length() != 5)
+        	{
+        		return false;
+        	}
+        	
         	// if more than one letter is changed between a step in the wordLadder
         	if(countLetterDifferent(prevString,newString) != 1)
         	{
@@ -149,6 +163,7 @@ public class WordLadderSolver implements Assignment4Interface
     	return true;
     }
     
+    
     /**
      *	Finds which letter was changed between a step on the wordLadder
      *
@@ -167,6 +182,7 @@ public class WordLadderSolver implements Assignment4Interface
     	}
 		return 0;
     }
+    
     
     /**
      *	Finds how many letters were changed between a step in the wordLadder
@@ -188,6 +204,15 @@ public class WordLadderSolver implements Assignment4Interface
     	return count;
     }
     
+    /**
+     *	Makes the wordLadder using recursion
+     *
+     *	@param fromWord The word before the step
+     *	@param toWord The word after the step
+     *	@param place is the position of the letter that was changed last
+     *	@return	true if the change is valid
+     *			false if the change is not valid 
+     */
     public boolean MakeLadder(String fromWord,String toWord, int place)						//uses recursion and finds a word ladder
     {
     	SolutionList.add(fromWord);															//add fromword to solution
@@ -250,6 +275,18 @@ public class WordLadderSolver implements Assignment4Interface
     	SolutionList.remove(fromWord);														//solution with this word do not exist, remove word from solution and return false
     	return false;
     }
+    
+    
+    /**
+     *	Check if the word that is being added to the wordLadder is a valid word
+     *
+     *	@param word The starting word in the word ladder.
+     *	@param toWord The ending word in the word ladder.
+     *	@param place The position of the letter that was changed
+     *	@param Candidates The list of words that could be the wordLadder
+     *	@return	true if the word is valid
+     *			false if the word is not validate 
+     */
      private boolean Check(String word, String toWord, int place, SortedSet<String> Candidates)
      {
     	 if(dictionary.isWord(word))														//check if the given word is in the dictionary
@@ -282,6 +319,14 @@ public class WordLadderSolver implements Assignment4Interface
     	 return false;
      }
      
+     
+     /**
+      *	Check if the given wordLadder is a wordLadder
+      *
+      *	@param solution The list of words in the wordLadder
+      *	@param begin The beginning of the wordLadder
+      *	@param end the end of the wordLadder
+      */
      void printSolution(List<String> solution,String begin, String end)
      {
     	 System.out.printf("For the input words \"%s\" and \"%s\" the following word ladder was found\n", begin, end);
@@ -291,5 +336,4 @@ public class WordLadderSolver implements Assignment4Interface
     	 }
     	 System.out.println("\n**********");
      }
-
 }

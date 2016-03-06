@@ -60,6 +60,6 @@ public class Test {
 	public void testValidateResult4() throws NoSuchLadderException {
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("atl", "zbsra");
-		assertEquals(false,wordLadderSolver.validateResult("atl", "zbsra",result));
+		assertEquals(true,wordLadderSolver.validateResult("atl", "zbsra",result));
 	}
 }
