@@ -13,77 +13,105 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Test {
+public class Test 
+{
 	
+	/**
+	 * 	if startWord and endWord are the same then 
+	 *  wordLadder should have no steps in it
+	 */
 	@org.junit.Test
-	public void testComputeLadder1() throws NoSuchLadderException {
+	public void testComputeLadder1() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("heads", "heads");
 		assertEquals(0,result.size());
 	}
 
+	
+	/**
+	 * 	If there is not wordLadder between two word then
+	 *  wordLadder will be null
+	 */
 	@org.junit.Test
-	public void testComputeLadder2() throws NoSuchLadderException {
+	public void testComputeLadder2() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("atlas", "zebra");
 		assertEquals(null,result);
 	}
 	
+	
+	/**
+	 * 	If startWord and/or endWord do not have 5 letter or is not in the dictionary then
+	 * 	wordLadder will be null
+	 */
 	@org.junit.Test
-	public void testComputeLadder3() throws NoSuchLadderException{
+	public void testComputeLadder3() throws NoSuchLadderException
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("atl", "zbsra");
 		assertEquals(null,result);
 	}
 
 	
-	/*	result = a wordLadder
+	/**
+	 * 	result = a wordLadder
 	 *	Validate result would be true since computeLadder creates a valid result
 	 */
 	@org.junit.Test
-	public void testValidateResult1() throws NoSuchLadderException {
+	public void testValidateResult1() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("heads", "tails");
 		assertEquals(true,wordLadderSolver.validateResult("heads","tails",result));
 	}
 
 	
-	/*	result = 0 since there are no steps in the ladder
+	/**
+	 * 	result = 0 since there are no steps in the ladder
 	 *	Validate result would be true 
 	 */
 	@org.junit.Test
-	public void testValidateResult2() throws NoSuchLadderException {
+	public void testValidateResult2() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("heads", "heads");
 		assertEquals(true,wordLadderSolver.validateResult("heads","heads",result));
 	}
 	
 	
-	/*	result = null since there is no wordLadder
+	/**
+	 * 	result = null since there is no wordLadder
 	 *	Validate result would be true 
 	 */
 	@org.junit.Test
-	public void testValidateResult3() throws NoSuchLadderException {
+	public void testValidateResult3() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("atlas", "zebra");
 		assertEquals(true,wordLadderSolver.validateResult("atlas", "zebra",result));
 	}
 	
 	
-	/*	result = null since there is no wordLadder
+	/**	result = null since there is no wordLadder
 	 *	Validate result would be true 
 	 */
 	@org.junit.Test
-	public void testValidateResult4() throws NoSuchLadderException {
+	public void testValidateResult4() throws NoSuchLadderException
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = wordLadderSolver.computeLadder("atl", "zbsra");
 		assertEquals(true,wordLadderSolver.validateResult("atl", "zbsra",result));
 	}
 	
 	
-	// 2 steps in the ladder change the same position
+	/**
+	 *  2 steps in the ladder change the same position
+	 */
 	@org.junit.Test
-	public void testValidateResult5() throws NoSuchLadderException {
+	public void testValidateResult5() throws NoSuchLadderException
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = new ArrayList<String>();
 		result.add("heads"); result.add("heals");result.add("teals");result.add("tells");result.add("tills");
@@ -92,9 +120,12 @@ public class Test {
 	}
 	
 	
-	// A word in the Ladder is not in the dictionary
+	/**
+	 *  A word in the Ladder is not in the dictionary
+	 */
 	@org.junit.Test
-	public void testValidateResult6() throws NoSuchLadderException {
+	public void testValidateResult6() throws NoSuchLadderException
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = new ArrayList<String>();
 		result.add("heads"); result.add("heals");result.add("teals");result.add("tells");result.add("talls");
@@ -103,9 +134,12 @@ public class Test {
 	}
 	
 	
-	// A word in the ladder is smaller than 5 letters
+	/**
+	 *  A word in the ladder is smaller than 5 letters
+	 */
 	@org.junit.Test
-	public void testValidateResult7() throws NoSuchLadderException {
+	public void testValidateResult7() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = new ArrayList<String>();
 		result.add("heads"); result.add("heals");result.add("teals");result.add("tells");result.add("tills");
@@ -114,9 +148,12 @@ public class Test {
 	}
 
 	
-	// A word Ladder that doesn't end with the ending word
+	/**
+	 *	A word Ladder that doesn't end with the ending word
+	 */
 	@org.junit.Test
-	public void testValidateResult8() throws NoSuchLadderException {
+	public void testValidateResult8() throws NoSuchLadderException 
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = new ArrayList<String>();
 		result.add("heads"); result.add("heals");result.add("teals");result.add("tells");result.add("tills");
@@ -125,13 +162,17 @@ public class Test {
 	}
 	
 	
-	// A step that changes more than one letter
+	/**
+	 *	A step that changes more than one letter
+	 */
 	@org.junit.Test
-	public void testValidateResult9() throws NoSuchLadderException {
+	public void testValidateResult9() throws NoSuchLadderException
+	{
 		WordLadderSolver wordLadderSolver = new WordLadderSolver();
 		List<String> result = new ArrayList<String>();
 		result.add("heads"); result.add("heals");result.add("teals");result.add("tells");result.add("tills");
 		result.add("bill");result.add("balls");result.add("tails");
 		assertEquals(false,wordLadderSolver.validateResult("heads", "tails",result));
 	}
+	
 }

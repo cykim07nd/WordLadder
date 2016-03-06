@@ -123,6 +123,7 @@ public class WordLadderSolver implements Assignment4Interface
     	{
     		return true;
     	}
+    	
     	// Checks that the beginning and end of the wordLadder are startWord and endWord
     	if(!wordLadder.get(0).equals(startWord) || !wordLadder.get(wordLadder.size()-1).equals(endWord))
     	{
@@ -138,12 +139,6 @@ public class WordLadderSolver implements Assignment4Interface
     	while(i.hasNext())
         {
         	newString = i.next();
-        	
-        	// check if the new word has 5 letters in it
-        	if(newString.length() != 5)
-        	{
-        		return false;
-        	}
         	
         	// check if the word is not in the dictionary
         	if(!dictionary.isWord(newString))
