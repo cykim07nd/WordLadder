@@ -111,6 +111,13 @@ public class WordLadderSolver implements Assignment4Interface
     	{
     		return true;
     	}
+    	
+    	// checks if the startWord and endWord are in the dictionary
+    	if(!dictionary.isWord(startWord) && !dictionary.isWord(endWord) && wordLadder == null)
+    	{
+    		return true;
+    	}
+    	
     	// Checks if there is no wordLadder 
     	if(wordLadder == null|| ((startWord.length() != 5 || endWord.length() != 5) && wordLadder == null ))
     	{
@@ -121,6 +128,7 @@ public class WordLadderSolver implements Assignment4Interface
     	{
     		return false;
     	}
+
     	
     	// Goes through the wordLadder and checks that the each word has a different position changed
     	Iterator<String> i = wordLadder.iterator();
@@ -133,6 +141,12 @@ public class WordLadderSolver implements Assignment4Interface
         	
         	// check if the new word has 5 letters in it
         	if(newString.length() != 5)
+        	{
+        		return false;
+        	}
+        	
+        	// check if the word is not in the dictionary
+        	if(!dictionary.isWord(newString))
         	{
         		return false;
         	}
